@@ -14,6 +14,21 @@ def root_redirect():
 
 @app.get("/time/{city}")
 def get_city_time(city: str):
+    """
+    Get the current local time for a specified city.
+
+    Args:
+        city (str): The name of the city for which to retrieve the current time. 
+            Supported cities include: new_york, london, paris, tokyo, sydney, los_angeles, 
+            chicago, berlin, mumbai, beijing, moscow, cape_town, dubai, singapore, rio.
+
+    Returns:
+        dict: A dictionary containing the city name, the current local time in 'YYYY-MM-DD HH:MM:SS' format,
+            and the corresponding timezone.
+
+    Raises:
+        HTTPException: If the specified city is not supported, returns a 404 error.
+    """
     # Mapping of common city names to timezones
     city_to_timezone = {
         "new_york": "America/New_York",
@@ -32,7 +47,7 @@ def get_city_time(city: str):
         "singapore": "Asia/Singapore",
         "rio": "America/Sao_Paulo"
     }
-    tz_name = city_to_timezone.get(city.lower())
+    tz_name = city_to_timezone.get(city.lower().replace(' ', '_'))
     if not tz_name:
         raise HTTPException(status_code=404, detail="City not supported.")
     tz = pytz.timezone(tz_name)
