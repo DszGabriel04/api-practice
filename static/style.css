@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 32px 24px 24px 24px;
+}
+h1 {
+    text-align: center;
+    color: #2d3a4b;
+    margin-bottom: 24px;
+}
+form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #cfd8dc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+button {
+    padding: 8px 16px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #2563eb;
+}
+#timeList {
+    list-style: none;
+    padding: 0;
+}
+#timeList li {
+    background: #e3eafc;
+    margin-bottom: 10px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    color: #1e293b;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+#timeList li.error {
+    background: #fee2e2;
+    color: #b91c1c;
+}
