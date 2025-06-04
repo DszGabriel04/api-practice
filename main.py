@@ -57,3 +57,9 @@ def get_city_time(city: str):
 @app.get("/tictactoe")
 def tictactoe_redirect():
     return RedirectResponse(url="/static/tictactoe.html")
+
+
+# Calculator route
+@app.get("/calculator")
+def calculator_redirect():
+    return RedirectResponse(url="/static/calculator.html")
