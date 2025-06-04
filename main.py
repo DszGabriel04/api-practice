@@ -53,3 +53,7 @@ def get_city_time(city: str):
     tz = pytz.timezone(tz_name)
     city_time = datetime.now(tz)
     return {"city": city, "time": city_time.strftime('%Y-%m-%d %H:%M:%S'), "timezone": tz_name}
+
+@app.get("/tictactoe")
+def tictactoe_redirect():
+    return RedirectResponse(url="/static/tictactoe.html")
