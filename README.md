@@ -1,22 +1,23 @@
 # API Practice
 
-A simple FastAPI-based project for practicing and demonstrating the development of RESTful APIs in Python. This project provides endpoints for retrieving the current time in major cities, redirecting to a static Tic-Tac-Toe game, and includes mathematical utility functions. The repository also features example static content and a basic testing setup.
+A simple FastAPI-based project for practicing and demonstrating the development of RESTful APIs in Python. This project provides endpoints for retrieving the current time in major cities, redirects for static web apps (like Tic-Tac-Toe or a calculator), and simple math utility functions.
 
 ## Features
 
 - **Current Time API**: Get the current local time for a variety of major global cities by name.
-- **Tic-Tac-Toe Redirect**: Redirects to a static HTML page hosting a Tic-Tac-Toe game.
-- **Math Utilities**: Includes a module (`calcfunc.py`) with functions for basic arithmetic operations (add, subtract, multiply, divide) with input validation.
+- **Tic-Tac-Toe & Calculator Redirects**: Redirects to static HTML pages hosting a Tic-Tac-Toe game and a calculator.
+- **Math Utilities**: Includes a module (`calcfunc.py`) with functions for basic arithmetic operations (addition, subtraction, multiplication, division) with input validation.
 - **Static File Serving**: Serves static files (e.g., HTML, CSS, JS) from a `static` directory.
 - **Testing**: Contains a `tests` directory for future test cases.
 
 ## Endpoints
 
-| Method | Path                 | Description                                    |
-|--------|----------------------|------------------------------------------------|
-| GET    | `/`                  | Redirects to `/static/index.html`              |
-| GET    | `/time/{city}`       | Returns local time for supported city          |
-| GET    | `/tictactoe`         | Redirects to `/static/tictactoe.html`          |
+| Method | Path                | Description                                    |
+|--------|---------------------|------------------------------------------------|
+| GET    | `/`                 | Redirects to `/static/index.html`              |
+| GET    | `/time/{city}`      | Returns local time for supported city          |
+| GET    | `/tictactoe`        | Redirects to `/static/tictactoe.html`          |
+| GET    | `/calculator`       | Redirects to `/static/calculator.html`         |
 
 ### Supported Cities for `/time/{city}`
 
@@ -47,20 +48,20 @@ _Response:_
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/DszGabriel04/api-practice.git
-   cd api-practice
-   ```
+    ```bash
+    git clone https://github.com/DszGabriel04/api-practice.git
+    cd api-practice
+    ```
 
 2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 3. Run the application:
-   ```bash
-   uvicorn main:app --reload
-   ```
+    ```bash
+    uvicorn main:app --reload
+    ```
 
 4. Open your browser at [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to view the static index page or try out the API endpoints.
 
