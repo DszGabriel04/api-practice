@@ -131,3 +131,10 @@ def rock_paper_scissors(player_choice: str):
         result = "You lose!"
 
     return {"player_choice": player_choice, "computer_choice": computer_choice, "result": result}
+
+@app.get("/rps")
+def rps_redirect():
+    """
+    Redirects to the Rock Paper Scissors game UI.
+    """
+    return RedirectResponse(url="/static/rps.html")

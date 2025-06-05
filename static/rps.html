@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            background: #f7fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .rps-container {
+            background: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+        .choices {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .choice-btn {
+            font-size: 2.5rem;
+            padding: 0.7em 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: #e0e7ff;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .choice-btn:hover {
+            background: #a5b4fc;
+        }
+        .result {
+            margin-top: 2rem;
+            font-size: 1.3rem;
+            min-height: 2em;
+        }
+        .back-link {
+            display: block;
+            margin-top: 2rem;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="rps-container">
+        <h1>Rock Paper Scissors</h1>
+        <div>Choose your move:</div>
+        <div class="choices">
+            <button class="choice-btn" data-choice="rock">✊ Rock</button>
+            <button class="choice-btn" data-choice="paper">✋ Paper</button>
+            <button class="choice-btn" data-choice="scissors">✌️ Scissors</button>
+        </div>
+        <div class="result" id="result"></div>
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+    <script>
+        const emojiMap = {
+            "rock": "✊",
+            "paper": "✋",
+            "scissors": "✌️"
+        };
+        const verdictEmoji = {
+            "You win!": "🎉",
+            "You lose!": "😢",
+            "It's a draw!": "🤝"
+        };
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const choice = this.getAttribute('data-choice');
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = "Waiting for result...";
+                try {
+                    const resp = await fetch(`/rps/${choice}`);
+                    if (!resp.ok) {
+                        const data = await resp.json();
+                        resultDiv.textContent = data.detail || "Error";
+                        return;
+                    }
+                    const data = await resp.json();
+                    resultDiv.innerHTML = `
+                        <div>
+                            <strong>You:</strong> ${emojiMap[data.player_choice] || data.player_choice}
+                            &nbsp;&nbsp;vs&nbsp;&nbsp;
+                            <strong>CPU:</strong> ${emojiMap[data.computer_choice] || data.computer_choice}
+                        </div>
+                        <div style="margin-top:1em;font-size:1.5em;">
+                            ${verdictEmoji[data.result] || ""} <strong>${data.result}</strong>
+                        </div>
+                    `;
+                } catch (err) {
+                    resultDiv.textContent = "Network error.";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
