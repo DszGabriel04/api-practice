@@ -73,5 +73,5 @@ def div(a1: int, a2: int):
     try:
         return a1 / a2
     except ZeroDivisionError:
-        print("Error")
+        print("Division by zero error: denominator is 0")  
         return None
