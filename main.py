@@ -64,12 +64,36 @@ def get_city_time(city: str):
 
 @app.get("/tictactoe")
 def tictactoe_redirect():
+    """
+    Redirects to the Tic Tac Toe game UI.
+
+    This function is responsible for handling the redirection to the Tic Tac Toe game UI.
+    It returns a RedirectResponse object that redirects the client to the /static/tictactoe.html page.
+
+    Parameters:
+    None
+
+    Returns:
+    RedirectResponse: A response object that redirects the client to the /static/tictactoe.html page.
+    """
     return RedirectResponse(url="/static/tictactoe.html")
 
 
 # Calculator route
 @app.get("/calculator")
 def calculator_redirect():
+    """
+    Redirects to the Calculator UI.
+
+    This function is responsible for handling the redirection to the Calculator UI.
+    It returns a RedirectResponse object that redirects the client to the /static/calculator.html page.
+
+    Parameters:
+    None
+
+    Returns:
+    RedirectResponse: A response object that redirects the client to the /static/calculator.html page.
+    """
     return RedirectResponse(url="/static/calculator.html")
 
 # Generate boilerplate route for calculator functions using the provided functions in calcfunc.py
