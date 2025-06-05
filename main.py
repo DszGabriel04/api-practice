@@ -3,6 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from datetime import datetime
 import pytz
+import random
 
 app = FastAPI()
 
@@ -99,3 +100,34 @@ def calculator_operation(operation: str, a1: int, a2: int):
         return div(a1, a2)
     else:
         raise HTTPException(status_code=400, detail="Invalid operation.")
+
+
+
+@app.get("/rps/{player_choice}")
+def rock_paper_scissors(player_choice: str):
+    """
+    Plays a game of rock, paper, scissors against the computer.
+
+    Args:
+        player_choice (str): The player's choice (rock, paper, or scissors).
+
+    Returns:
+        dict: A dictionary containing the player's choice, the computer's choice, and the result of the game.
+    """
+    choices = ["rock", "paper", "scissors"]
+    computer_choice = random.choice(choices)
+
+    if player_choice not in choices:
+        raise HTTPException(status_code=400, detail="Invalid choice. Choose rock, paper, or scissors.")
+
+    result = ""
+    if player_choice == computer_choice:
+        result = "It's a draw!"
+    elif (player_choice == "rock" and computer_choice == "scissors") or \
+         (player_choice == "paper" and computer_choice == "rock") or \
+         (player_choice == "scissors" and computer_choice == "paper"):
+        result = "You win!"
+    else:
+        result = "You lose!"
+
+    return {"player_choice": player_choice, "computer_choice": computer_choice, "result": result}
