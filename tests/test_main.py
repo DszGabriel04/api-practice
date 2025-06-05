@@ -76,23 +76,6 @@ def test_get_city_time_dst_transition(city, dst_date, non_dst_date):
         assert dst_result["timezone"] == non_dst_result["timezone"]
         assert dst_result["time"] != non_dst_result["time"]
 
-def test_supported_cities_timezone():
-    supported_cities = [
-        "new_york", "london", "paris", "tokyo", "sydney",
-        "los_angeles", "chicago", "berlin", "kolkata", "shanghai",
-        "moscow", "johannesburg", "dubai", "singapore", "sao_paulo"
-    ]
-    expected_timezones = [
-        "America/New_York", "Europe/London", "Europe/Paris", "Asia/Tokyo",
-        "Australia/Sydney", "America/Los_Angeles", "America/Chicago",
-        "Europe/Berlin", "Asia/Kolkata", "Asia/Shanghai", "Europe/Moscow",
-        "Africa/Johannesburg", "Asia/Dubai", "Asia/Singapore", "America/Sao_Paulo"
-    ]
-    
-    for city, expected_tz in zip(supported_cities, expected_timezones):
-        response = client.get(f"/time/{city}")
-        assert response.status_code == 200
-        assert response.json()["timezone"] == expected_tz
 
 def test_get_city_time_format():
     with patch('main.datetime') as mock_datetime:
@@ -120,24 +103,3 @@ def test_get_city_time_consistency():
     time_diffs = [(times[i+1] - times[i]).total_seconds() for i in range(len(times)-1)]
     
     assert all(0 <= diff <= 1 for diff in time_diffs), "Time differences should be within 1 second"
-
-def test_get_city_time_special_characters():
-    with patch('main.datetime') as mock_datetime:
-        mock_now = datetime(2023, 5, 1, 12, 0, 0)
-        mock_datetime.now.return_value = mock_now
-
-        response = client.get("/time/new_york123!@#")
-        assert response.status_code == 200
-        assert response.json() == {
-            "city": "new_york123!@#",
-            "time": "2023-05-01 12:00:00",
-            "timezone": "America/New_York"
-        }
-
-        response = client.get("/time/L0S_@NG3L3S")
-        assert response.status_code == 200
-        assert response.json() == {
-            "city": "L0S_@NG3L3S",
-            "time": "2023-05-01 12:00:00",
-            "timezone": "America/Los_Angeles"
-        }

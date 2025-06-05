@@ -10,6 +10,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def root_redirect():
+    """
+    Redirects the root URL to the static index.html page.
+
+    Returns:
+
+        RedirectResponse: A response object that redirects the client to the /static/index.html page.
+    """
     return RedirectResponse(url="/static/index.html")
 
 @app.get("/time/{city}")
