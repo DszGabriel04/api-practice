@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            background: #f7fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .rps-container {
+            background: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            text-align: center;
+        }
+        .choices {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .choice-btn {
+            font-size: 2.5rem;
+            padding: 0.7em 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: #e0e7ff;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .choice-btn:hover {
+            background: #a5b4fc;
+        }
+        .result {
+            margin-top: 2rem;
+            font-size: 1.3rem;
+            min-height: 2em;
+        }
+        .back-link {
+            display: block;
+            margin-top: 2rem;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="rps-container">
+        <h1>Rock Paper Scissors</h1>
+        <div>Choose your move:</div>
+        <div class="choices">
+            <button class="choice-btn" data-choice="rock">✊ Rock</button>
+            <button class="choice-btn" data-choice="paper">✋ Paper</button>
+            <button class="choice-btn" data-choice="scissors">✌️ Scissors</button>
+        </div>
+        <div class="result" id="result"></div>
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+    <script>
+        const emojiMap = {
+            "rock": "✊",
+            "paper": "✋",
+            "scissors": "✌️"
+        };
+        const verdictEmoji = {
+            "You win!": "🎉",
+            "You lose!": "😢",
+            "It's a draw!": "🤝"
+        };
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const choice = this.getAttribute('data-choice');
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = "Waiting for result...";
+                try {
+                    const resp = await fetch(`/rps/${choice}`);
+                    if (!resp.ok) {
+                        const data = await resp.json();
+                        resultDiv.textContent = data.detail || "Error";
+                        return;
+                    }
+                    const data = await resp.json();
+                    const playerDiv = document.createElement('div');
+                    const playerText = document.createTextNode(`You: ${emojiMap[data.player_choice] || data.player_choice}`);
+                    const playerStrong = document.createElement('strong');
+                    playerStrong.textContent = "You:";
+                    playerDiv.appendChild(playerStrong);
+                    playerDiv.appendChild(document.createTextNode(" "));
+                    playerDiv.appendChild(playerText);
+
+                    const vsText = document.createTextNode(" vs ");
+                    playerDiv.appendChild(vsText);
+
+                    const cpuStrong = document.createElement('strong');
+                    cpuStrong.textContent = "CPU:";
+                    playerDiv.appendChild(cpuStrong);
+                    playerDiv.appendChild(document.createTextNode(" "));
+                    const cpuText = document.createTextNode(`${emojiMap[data.computer_choice] || data.computer_choice}`);
+                    playerDiv.appendChild(cpuText);
+
+                    const resultDivContent = document.createElement('div');
+                    resultDivContent.style.marginTop = "1em";
+                    resultDivContent.style.fontSize = "1.5em";
+                    const resultEmoji = document.createTextNode(`${verdictEmoji[data.result] || ""} `);
+                    const resultStrong = document.createElement('strong');
+                    resultStrong.textContent = data.result;
+                    resultDivContent.appendChild(resultEmoji);
+                    resultDivContent.appendChild(resultStrong);
+
+                    resultDiv.textContent = ""; // Clear previous content
+                    resultDiv.appendChild(playerDiv);
+                    resultDiv.appendChild(resultDivContent);
+                } catch (err) {
+                    resultDiv.textContent = "Network error.";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
