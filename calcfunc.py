@@ -63,14 +63,15 @@ def div(a1: int, a2: int):
         a2 (int): The denominator.
 
     Returns:
-        float: The result of a1 / a2.
+        float: The result of a1 / a2, or None if division by zero occurs.
 
     Raises:
         TypeError: If either a1 or a2 is not an integer.
-        ZeroDivisionError: If a2 is zero.
     """
     if not isinstance(a1, int) or not isinstance(a2, int):
         raise TypeError("Both arguments must be integers.")
-    if a2 == 0:
-        raise ZeroDivisionError("Division by zero is not allowed.")
-    return a1 / a2
+    try:
+        return a1 / a2
+    except ZeroDivisionError:
+        print("Division by zero error: denominator is 0")  
+        return None

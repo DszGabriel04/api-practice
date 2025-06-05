@@ -10,6 +10,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def root_redirect():
+    """
+    Redirects the root URL to the static index.html page.
+
+    Returns:
+
+        RedirectResponse: A response object that redirects the client to the /static/index.html page.
+    """
     return RedirectResponse(url="/static/index.html")
 
 @app.get("/time/{city}")
@@ -63,3 +70,32 @@ def tictactoe_redirect():
 @app.get("/calculator")
 def calculator_redirect():
     return RedirectResponse(url="/static/calculator.html")
+
+# Generate boilerplate route for calculator functions using the provided functions in calcfunc.py
+@app.get("/calculator/{operation}/{a1}/{a2}")
+def calculator_operation(operation: str, a1: int, a2: int):
+    """
+    Performs a basic arithmetic operation on two numbers.
+
+    Args:
+        operation (str): The arithmetic operation to perform. Supported operations include: add, subtract, multiply, division.
+        a1 (int): The first number to use in the operation.
+        a2 (int): The second number to use in the operation.
+
+    Returns:
+        int: The result of the arithmetic operation.
+    """
+    from calcfunc import add, sub, mul, div
+
+    if operation == "add":
+        return add(a1, a2)
+    elif operation == "sub":
+        return sub(a1, a2)
+    elif operation == "mul":
+        return mul(a1, a2)
+    elif operation == "div":
+        if a2 == 0:
+            raise HTTPException(status_code=400, detail="Division by zero is not allowed.")
+        return div(a1, a2)
+    else:
+        raise HTTPException(status_code=400, detail="Invalid operation.")
