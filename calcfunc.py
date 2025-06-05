@@ -70,7 +70,8 @@ def div(a1: int, a2: int):
     """
     if not isinstance(a1, int) or not isinstance(a2, int):
         raise TypeError("Both arguments must be integers.")
-    if a2 == 0:
+    try:
+        return a1 / a2
+    except ZeroDivisionError:
         print("Error")
         return None
-    return a1 / a2
