@@ -33,6 +33,7 @@ h11==0.14.0
 httpcore==1.0.7
 httpx==0.28.1
 idna==3.10
+iniconfig==2.1.0
 ipykernel==6.29.5
 ipython==9.0.2
 ipython_pygments_lexers==1.1.1
@@ -79,6 +80,7 @@ pexpect==4.9.0
 pillow==11.1.0
 platformdirs==4.3.6
 plotly==6.0.1
+pluggy==1.6.0
 prometheus_client==0.21.1
 prompt_toolkit==3.0.50
 psutil==7.0.0
@@ -89,6 +91,7 @@ pydantic==2.11.5
 pydantic_core==2.33.2
 Pygments==2.19.1
 pyparsing==3.2.1
+pytest==8.4.0
 python-dateutil==2.9.0.post0
 python-json-logger==3.3.0
 pytz==2025.1

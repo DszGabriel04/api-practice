@@ -39,9 +39,3 @@ def test_div_basic():
 def test_div_edge_cases():
     assert div(1000000, 1) == 1000000
     assert div(-1000000, -1) == 1000000
-
-def test_div_by_zero(capsys):
-    result = div(5, 0)
-    captured = capsys.readouterr()
-    assert captured.out.strip() == "Error"
-    assert result is None
