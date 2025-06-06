@@ -188,3 +188,42 @@ def get_team_info(team: str):
         "attendance": 10000
     }
     return team_data
+
+
+
+# Generate boilerplate for a football scores API, given a team name, csv file with scores is provided from a link, use pd.read_csv to read the csv file and return the scores for the team.
+@app.get("/football/scores/{team}")
+def get_football_scores(team: str):
+    """
+    Retrieves the football scores for a given team.
+
+    Args:
+        team (str): The name of the team.
+
+    Returns:
+        dict: A dictionary containing the team's scores.
+    """
+    import pandas as pd
+
+    # URL to the CSV file containing football scores
+    csv_url = "https://raw.githubusercontent.com/footballcsv/england/refs/heads/master/2010s/2015-16/eng.1.csv"
+    try:
+        # Read the CSV file into a DataFrame
+        df = pd.read_csv(csv_url)
+
+        """
+        
+        Filter the DataFrame for the specified team.
+        The DataFrame is expected to have columns like Round,Date,Team 1,FT,Team 2
+        """
+        team_scores = df[(df['Team 1'].str.lower() == team.lower()) | (df['Team 2'].str.lower() == team.lower())]
+        # Check if the team has any scores 
+        # If not, raise a 404 HTTPException with an appropriate message. 
+        
+        # Convert the DataFrame to a dictionary
+        scores = team_scores.to_dict(orient='records')
+
+        return {"team": team, "scores": scores} 
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
