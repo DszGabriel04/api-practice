@@ -75,3 +75,27 @@ def div(a1: int, a2: int):
     except ZeroDivisionError:
         print("Division by zero error: denominator is 0")  
         return None
+
+def mod(a1: int, a2: int):
+    """
+    Calculates the remainder of a1 divided by a2.
+
+    Args:
+        a1 (int): The dividend.
+        a2 (int): The divisor.
+
+    Returns:
+        int: The remainder of a1 / a2.
+        None: If division by zero occurs.
+
+    Raises:
+        TypeError: If either a1 or a2 is not an integer.
+    """
+    if not isinstance(a1, int) or not isinstance(a2, int):
+        raise TypeError("Both arguments must be integers.")
+    try:
+        return a1 % a2
+    except ZeroDivisionError:
+        print("Division by zero error: denominator is 0")  
+        return None
+

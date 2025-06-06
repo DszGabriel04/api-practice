@@ -162,3 +162,29 @@ def rps_redirect():
     Redirects to the Rock Paper Scissors game UI.
     """
     return RedirectResponse(url="/static/rps.html")
+
+# generate a boilerplate for a soccer API
+@app.get("/soccer/{team}")
+def get_team_info(team: str):
+    """
+    Retrieves information about a soccer team.
+
+    Args:
+        team (str): The name of the team.
+
+    Returns:
+        dict: A dictionary containing team information.
+    """
+    # Add some random data for the soccer team, add more players and coach information as needed.
+    team_data = {
+        "team": team,
+        "players": [
+            {"name": "Player 1", "position": "Forward", "goals": 3},
+            {"name": "Player 2", "position": "Midfielder", "goals": 2},
+            {"name": "Player 3", "position": "Defender", "goals": 1}
+        ],
+        "coach": "Coach Name",
+        "stadium": "Stadium Name",
+        "attendance": 10000
+    }
+    return team_data
