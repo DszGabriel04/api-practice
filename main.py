@@ -167,26 +167,33 @@ def rps_redirect():
 @app.get("/soccer/{team}")
 def get_team_info(team: str):
     """
-    Retrieves information about a soccer team.
+    Endpoint to retrieve information about a soccer team.
 
     Args:
-        team (str): The name of the team.
+        team (str): The name of the team for which information is being retrieved.
 
     Returns:
-        dict: A dictionary containing team information.
+        dict: A dictionary containing detailed information about the team, including players, coach, stadium, and attendance.
     """
-    # Add some random data for the soccer team, add more players and coach information as needed.
+    # Define a dictionary containing the team information.
+    # This dictionary includes the team name, a list of players with their respective positions and goals, 
+    # the coach's name, the stadium name, and the average attendance.
     team_data = {
         "team": team,
         "players": [
+            # List of players with their roles and goals scored
             {"name": "Player 1", "position": "Forward", "goals": 3},
             {"name": "Player 2", "position": "Midfielder", "goals": 2},
             {"name": "Player 3", "position": "Defender", "goals": 1}
         ],
+        # Name of the team's coach
         "coach": "Coach Name",
+        # Name of the stadium where the team plays
         "stadium": "Stadium Name",
+        # Average attendance for the team's games
         "attendance": 10000
     }
+    # Return the team data dictionary as the response
     return team_data
 
 
