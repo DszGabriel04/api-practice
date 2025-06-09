@@ -4,20 +4,31 @@ A simple FastAPI-based project for practicing and demonstrating the development 
 
 ## Features
 
-- **Current Time API**: Get the current local time for a variety of major global cities by name.
-- **Tic-Tac-Toe & Calculator Redirects**: Redirects to static HTML pages hosting a Tic-Tac-Toe game and a calculator.
-- **Math Utilities**: Includes a module (`calcfunc.py`) with functions for basic arithmetic operations (addition, subtraction, multiplication, division) with input validation.
-- **Static File Serving**: Serves static files (e.g., HTML, CSS, JS) from a `static` directory.
-- **Testing**: Contains a `tests` directory for future test cases.
+- **Current Time API:** Get the current local time for a variety of major global cities by name.
+- **Tic-Tac-Toe, Calculator, Rock Paper Scissors UIs:** Redirects to static HTML pages hosting interactive games and tools.
+- **Math Utilities:** Includes a module (`calcfunc.py`) with functions for basic arithmetic operations (addition, subtraction, multiplication, division) with input validation.
+- **REST Calculator API:** Perform arithmetic operations directly via an API endpoint.
+- **Rock Paper Scissors Game:** Play Rock Paper Scissors against the computer via API or static UI.
+- **Soccer Team Info:** Retrieve example soccer team information as structured data.
+- **Football Scores:** Fetch football scores for a given team using live CSV data.
+- **String Utilities:** Reverse a string using a simple endpoint.
+- **Static File Serving:** Serves static files (e.g., HTML, CSS, JS) from a `static` directory.
+- **Testing:** Contains a `tests` directory for future test cases.
 
 ## Endpoints
 
-| Method | Path                | Description                                    |
-|--------|---------------------|------------------------------------------------|
-| GET    | `/`                 | Redirects to `/static/index.html`              |
-| GET    | `/time/{city}`      | Returns local time for supported city          |
-| GET    | `/tictactoe`        | Redirects to `/static/tictactoe.html`          |
-| GET    | `/calculator`       | Redirects to `/static/calculator.html`         |
+| Method | Path                               | Description                                                       |
+|--------|------------------------------------|-------------------------------------------------------------------|
+| GET    | `/`                                | Redirects to `/static/index.html`                                 |
+| GET    | `/time/{city}`                     | Returns local time for supported city                             |
+| GET    | `/tictactoe`                       | Redirects to `/static/tictactoe.html`                             |
+| GET    | `/calculator`                      | Redirects to `/static/calculator.html`                            |
+| GET    | `/calculator/{operation}/{a1}/{a2}`| Performs arithmetic operation (add, sub, mul, div)                |
+| GET    | `/rps`                             | Redirects to `/static/rps.html`                                   |
+| GET    | `/rps/{player_choice}`             | Play Rock Paper Scissors against the computer                     |
+| GET    | `/soccer/{team}`                   | Retrieve soccer team info (players, coach, stadium, etc.)         |
+| GET    | `/football/scores/{team}`          | Fetch football scores for a team from a live CSV                  |
+| GET    | `/rs/{string}`                     | Returns the reverse of the input string                           |
 
 ### Supported Cities for `/time/{city}`
 
@@ -38,6 +49,58 @@ _Response:_
 }
 ```
 
+**Perform addition using the calculator API:**
+```
+GET /calculator/add/5/3
+```
+_Response:_
+```json
+8
+```
+
+**Play Rock Paper Scissors:**
+```
+GET /rps/rock
+```
+_Response:_
+```json
+{
+  "player_choice": "rock",
+  "computer_choice": "scissors",
+  "result": "You win!"
+}
+```
+
+**Get football scores for a team:**
+```
+GET /football/scores/Arsenal
+```
+_Response:_
+```json
+{
+  "team": "Arsenal",
+  "scores": [
+    {
+      "Round": 1,
+      "Date": "2015-08-08",
+      "Team 1": "Arsenal",
+      "FT": "0-2",
+      "Team 2": "West Ham"
+    },
+    ...
+  ]
+}
+```
+
+**Reverse a string:**
+```
+GET /rs/hello
+```
+_Response:_
+```json
+"olleh"
+```
+
 ## Quick Start
 
 ### Requirements
@@ -47,23 +110,19 @@ _Response:_
 
 ### Installation
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/DszGabriel04/api-practice.git
-    cd api-practice
-    ```
+```bash
+git clone https://github.com/DszGabriel04/api-practice.git
+cd api-practice
+pip install -r requirements.txt
+```
 
-2. Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Running the Application
 
-3. Run the application:
-    ```bash
-    uvicorn main:app --reload
-    ```
+```bash
+uvicorn main:app --reload
+```
 
-4. Open your browser at [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to view the static index page or try out the API endpoints.
+Then open your browser at [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to view the static index page or try out the API endpoints.
 
 ## File Structure
 
@@ -72,7 +131,7 @@ _Response:_
 ├── main.py             # FastAPI application with endpoints
 ├── calcfunc.py         # Utility functions for basic arithmetic
 ├── requirements.txt    # Python dependencies
-├── static/             # Static files (HTML, CSS, JS)
+├── static/             # Static files (HTML, CSS, JS, games)
 ├── tests/              # Tests (to be implemented)
 └── README.md           # Project documentation
 ```
