@@ -196,21 +196,17 @@ def get_team_info(team: str):
 def get_football_scores(team: str):
     """
     Retrieves the football scores for a given team.
-
     Args:
         team (str): The name of the team.
-
     Returns:
         dict: A dictionary containing the team's scores.
     """
     import pandas as pd
-
     # URL to the CSV file containing football scores
     csv_url = "https://raw.githubusercontent.com/footballcsv/england/refs/heads/master/2010s/2015-16/eng.1.csv"
     try:
         # Read the CSV file into a DataFrame
         df = pd.read_csv(csv_url)
-
         """
         
         Filter the DataFrame for the specified team.
@@ -227,3 +223,23 @@ def get_football_scores(team: str):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/rs/{string}")
+def reverse_string(string: str):
+    """
+    Returns the reverse of the given string.
+    
+    This function takes a string as an argument and returns a new string that is the reverse of the input string.
+    
+    For example, if the input string is "hello", the returned string will be "olleh".
+    
+    The function does not modify the input string in any way, it simply returns a new string that is the reverse of the input string.
+    """
+    # Get the input string
+    input_str = string
+    
+    # Reverse the string
+    reversed_str = input_str[::-1]
+    
+    # Return the reversed string
+    return reversed_str
