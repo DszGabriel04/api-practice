@@ -250,3 +250,49 @@ def reverse_string(string: str):
     
     # Return the reversed string
     return reversed_str
+
+
+# Leetspeak conversion helper function and mapping
+# This mapping is based on the specific examples provided in the request:
+# Q: Hello -> A: H3110
+# Q: Im great at this. -> A: 1m gr34t 4t th15
+# This implies: a->4, e->3, i->1, l->1, o->0, s->5. Other characters are preserved.
+_LEETSPEAK_MAP = {
+    'a': '4',
+    'e': '3',
+    'i': '1',
+    'l': '1', # As in H3110
+    'o': '0',
+    's': '5',
+}
+
+def _convert_str_to_leetspeak(input_text: str) -> str:
+    """
+    Converts a string to leetspeak based on the _LEETSPEAK_MAP.
+    Characters not in the map (after converting to lowercase for lookup) are preserved.
+    """
+    converted_chars = []
+    for char in input_text:
+        lower_char = char.lower()
+        if lower_char in _LEETSPEAK_MAP:
+            converted_chars.append(_LEETSPEAK_MAP[lower_char])
+        else:
+            converted_chars.append(char)
+    return "".join(converted_chars)
+
+@app.get("/leetspeak/{text}")
+async def convert_to_leetspeak_route(text: str):
+    """
+    Converts a given string to leetspeak and returns the result.
+
+    Examples:
+    - "Hello" will be converted to "H3110"
+    - "Im great at this." will be converted to "1m gr34t 4t th15"
+
+    Args:
+        text (str): The input string to be converted.
+
+    Returns:
+        str: The leetspeak version of the input string.
+    """
+    return _convert_str_to_leetspeak(text)
