@@ -298,3 +298,32 @@ async def convert_to_leetspeak_route(text: str):
         str: The leetspeak version of the input string.
     """
     return _convert_str_to_leetspeak(text)
+
+# Route that generates a random number between 1 and 100
+@app.get("/rn")
+def generate_random_number():
+    """
+    Generates a random number between 1 and 100.
+
+    Returns:
+        dict: A dictionary containing the generated random number.
+    """
+    random_number = random.randint(1, 100)
+    return {"random_number": random_number}
+
+@app.get("/rn/{min}/{max}")
+def generate_random_number_range(min: int, max: int):
+    """
+    Generates a random number between the specified minimum and maximum values.
+
+    Args:
+        min (int): The minimum value for the random number.
+        max (int): The maximum value for the random number.
+
+    Returns:
+        dict: A dictionary containing the generated random number.
+    """
+    if min >= max:
+        raise HTTPException(status_code=400, detail="Minimum value must be less than maximum value.")
+    random_number = random.randint(min, max)
+    return {"random_number": random_number}
