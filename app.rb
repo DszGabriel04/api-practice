@@ -99,4 +99,4 @@ get '/rps' do
 end
 
 # Start the server
-Sinatra::Application.run!
+run! if app_file == $0
