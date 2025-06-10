@@ -14,9 +14,11 @@ def root_redirect():
     """
     Redirects the root URL to the static index.html page.
 
-    Returns:
+    This function handles requests to the root URL ("/") and redirects them to the 
+    "/static/index.html" page, which is typically the main entry point for the web application.
 
-        RedirectResponse: A response object that redirects the client to the /static/index.html page.
+    Returns:
+        RedirectResponse: A response object that redirects the client to the "/static/index.html" page.
     """
     return RedirectResponse(url="/static/index.html")
 
