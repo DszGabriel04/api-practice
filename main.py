@@ -375,3 +375,10 @@ def generate_random_number_range(min: int, max: int):
                             "be less than maximum value.")
     random_number = random.randint(min, max)
     return {"random_number": random_number}
+
+@app.get("/hello")
+def hello_world():
+    """
+    Returns a simple 'Hello, World!' message.
+    """
+    return {"message": "Hello, World!"}
