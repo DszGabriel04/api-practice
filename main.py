@@ -251,7 +251,7 @@ def get_football_scores(team: str):
     import pandas as pd
     # URL to the CSV file containing football scores
     csv_url = "https://raw.githubusercontent.com/footballcsv/" \
-              "england/refs/heads/master/2010s/2015-16/eng.1.csv"
+              "england/refs/heads/master/2010s/2016-17/eng.1.csv"
     try:
         # Read the CSV file into a DataFrame
         df = pd.read_csv(csv_url)
