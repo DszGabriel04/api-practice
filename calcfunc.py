@@ -1,5 +1,3 @@
-import math
-
 def add(a1: int, a2: int):
     """
     Adds two integers and returns their sum.
@@ -17,6 +15,7 @@ def add(a1: int, a2: int):
     if not isinstance(a1, int) or not isinstance(a2, int):
         raise TypeError("Both arguments must be integers.")
     return a1 + a2
+
 
 def sub(a1: int, a2: int):
     """
@@ -36,6 +35,7 @@ def sub(a1: int, a2: int):
         raise TypeError("Both arguments must be integers.")
     return a1 - a2
 
+
 def mul(a1: int, a2: int):
     """
     Multiplies two integers and returns the result.
@@ -53,6 +53,7 @@ def mul(a1: int, a2: int):
     if not isinstance(a1, int) or not isinstance(a2, int):
         raise TypeError("Both arguments must be integers.")
     return a1 * a2
+
 
 def div(a1: int, a2: int):
     """
@@ -73,8 +74,9 @@ def div(a1: int, a2: int):
     try:
         return a1 / a2
     except ZeroDivisionError:
-        print("Division by zero error: denominator is 0")  
+        print("Division by zero error: denominator is 0")
         return None
+
 
 def mod(a1: int, a2: int):
     """
@@ -96,6 +98,5 @@ def mod(a1: int, a2: int):
     try:
         return a1 % a2
     except ZeroDivisionError:
-        print("Division by zero error: denominator is 0")  
+        print("Division by zero error: denominator is 0")
         return None
-
