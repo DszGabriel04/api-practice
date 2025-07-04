@@ -4,6 +4,8 @@ tar -xvzf wiki.abstracts.2017.tar.gz
 
 https://app.runllm.com/chat/012e1e2a-6363-48ec-adfb-05367734d840
 
+https://www.kernel.org/doc/gorman/pdf/understand.pdf
+
 You
 
 How can i use Vector Databases and RAG with DSPy
